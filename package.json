@@ -1,0 +1,29 @@
+{
+  "name": "uxfeditor",
+  "version": "1.0.0",
+  "description": "A rich text editor for everyday writing",
+  "main": "dist/trix.js",
+  "style": "dist/trix.css",
+  "files": [
+    "dist/*.css",
+    "dist/*.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/macanhhuy/uxfeditor.git"
+  },
+  "keywords": [
+    "rich text",
+    "wysiwyg",
+    "editor"
+  ],
+  "author": "",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/macanhhuy/uxfeditor/issues"
+  },
+  "homepage": "",
+  "devDependencies": {
+    "svgo": "^0.6.1"
+  }
+}

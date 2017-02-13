@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Trix</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="trix.css">
+    <style type="text/css">
+      trix-editor, #formatted-content {
+        width: 500px;
+        margin-bottom: 100px;
+      }
+    </style>
+    <script type="text/javascript" src="trix.js"></script>
+    <script type="text/javascript" src="trix/inspector.js"></script>
+    <script type="text/javascript">
+      document.addEventListener("trix-initialize", function(event) {
+        Trix.Inspector.install(event.target);
+      });
+
+      document.addEventListener("trix-attachment-add", function(event) {
+        var attachment = event.attachment;
+        if (attachment.file) {
+          var xhr = new XMLHttpRequest;
+          xhr.open("POST", "/attachments", true);
+
+          xhr.upload.onprogress = function(event) {
+            var progress = event.loaded / event.total * 100;
+            attachment.setUploadProgress(progress);
+          };
+
+          xhr.onload = function() {
+            if (xhr.status === 201) {
+              setTimeout(function() {
+                var url = xhr.responseText;
+                attachment.setAttributes({ url: url, href: url });
+              }, 30)
+            }
+          };
+
+          attachment.setUploadProgress(10);
+
+          setTimeout(function() {
+            xhr.send(attachment.file);
+          }, 30)
+        }
+      });
+    </script>
+  </head>
+  <body>
+    <trix-editor autofocus class="trix-content"></trix-editor>
+  </body>
+</html>
